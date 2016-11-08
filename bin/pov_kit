@@ -2,10 +2,11 @@
 require 'gli'
 begin # XXX: Remove this begin/rescue before distributing your app
 require 'pov_kit'
+
 rescue LoadError
-  STDERR.puts "In development, you need to use `bundle exec bin/pov_kit` to run your app"
-  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
-  STDERR.puts "Feel free to remove this message from bin/pov_kit now"
+  STDERR.puts 'In development, you need to use `bundle exec bin/pov_kit` to run your app'
+  STDERR.puts 'At install-time, RubyGems will make sure lib, etc. are in the load path'
+  STDERR.puts 'Feel free to remove this message from bin/pov_kit now'
   exit 64
 end
 
@@ -35,18 +36,13 @@ command :generate do |c|
   c.desc 'Describe a flag to generate'
   c.default_value 'default'
   c.flag :f
-  c.action do |global_options,options,args|
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-
-    puts "generate command ran"
+  c.action do |_global_options, _options,args|
+    PovKit::Generator.new.send(args.first, *args[1..-1])
   end
 end
 
-pre do |global,command,options,args|
+pre do |_global, _command, _options, _args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
@@ -55,13 +51,13 @@ pre do |global,command,options,args|
   true
 end
 
-post do |global,command,options,args|
+post do |_global, _command, _options, _args|
   # Post logic here
   # Use skips_post before a command to skip this
   # block on that command only
 end
 
-on_error do |exception|
+on_error do |_exception|
   # Error logic here
   # return false to skip default error handling
   true
