@@ -20,25 +20,38 @@ subcommand_option_handling :normal
 arguments :strict
 
 desc 'Describe some switch here'
-switch [:s,:switch]
+switch [:a,:append]
+
 
 desc 'Describe some flag here'
 default_value 'the default'
 arg_name 'The name of the argument'
-flag [:f,:flagname]
+flag [:f, :file]
+flag [:l, :local]
+flag [:g, :global]
 
 desc 'Describe generate here'
 arg_name 'Describe arguments to generate here'
 command :generate do |c|
   c.desc 'Describe a switch to generate'
-  c.switch :s
+  c.switch :a
 
   c.desc 'Describe a flag to generate'
   c.default_value 'default'
   c.flag :f
 
-  c.action do |_global_options, _options,args|
-    PovKit::Generator.new.send(args.first, *args[1..-1])
+  c.action do |global_options, options, args|
+    context = {
+        global_options: global_options,
+        options: options,
+        args: args
+    }
+
+    is_local = !!global_options[:local]
+    asset = args.first
+    name = global_options[:local] || global_options[:global] || ''
+    params = args[1..-1]
+    p PovKit::Generator.new.send(asset, is_local, name, *params)
   end
 end
 
