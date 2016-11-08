@@ -1,0 +1,5 @@
+= pov_kit
+
+Generate this with
+    pov_kit rdoc
+After you have described your command line interface

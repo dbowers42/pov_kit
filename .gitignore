@@ -1,13 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gitignore
 .idea/
-Gemfile
-Gemfile.lock
-README.rdoc
-Rakefile
-bin/
-features/
-lib/
-pov_kit.gemspec
-pov_kit.rdoc
-test/
+
