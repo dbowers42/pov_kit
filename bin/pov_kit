@@ -23,11 +23,13 @@ desc 'Describe some switch here'
 switch [:a,:append]
 
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
+desc 'File to output generated code to'
+default_value 'untitled.inc'
+arg_name 'output file'
 flag [:f, :file]
+
 flag [:l, :local]
+
 flag [:g, :global]
 
 desc 'Describe generate here'
@@ -77,3 +79,4 @@ on_error do |_exception|
 end
 
 exit run(ARGV)
+
