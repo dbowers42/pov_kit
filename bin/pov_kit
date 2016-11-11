@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'gli'
 begin # XXX: Remove this begin/rescue before distributing your app
-require 'pov_kit'
+  require 'pov_kit'
 
 rescue LoadError
   STDERR.puts 'In development, you need to use `bundle exec bin/pov_kit` to run your app'
@@ -20,7 +20,7 @@ subcommand_option_handling :normal
 arguments :strict
 
 desc 'Describe some switch here'
-switch [:a,:append]
+switch [:a, :append]
 
 
 desc 'File to output generated code to'
@@ -43,17 +43,13 @@ command :generate do |c|
   c.flag :f
 
   c.action do |global_options, options, args|
-    context = {
-        global_options: global_options,
-        options: options,
+    config = {
+        flags: global_options,
+        switches: options,
         args: args
     }
 
-    is_local = !!global_options[:local]
-    asset = args.first
-    name = global_options[:local] || global_options[:global] || ''
-    params = args[1..-1]
-    p PovKit::Generator.new.send(asset, is_local, name, *params)
+    puts PovKit::Generators::GeneratorFactory.build(args.first, config).render
   end
 end
 
