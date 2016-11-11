@@ -29,8 +29,12 @@ module PovKit
         template = File.read(template_path)
 
         ERB.new(template)
-            .result(OpenStruct.new(fill_template)
-                        .instance_eval { binding })
+           .result(OpenStruct.new(fill_template)
+           .instance_eval { binding })
+      end
+
+      def vector(x, y, z)
+        "<#{x || 0}, #{y || 0}, #{z || 1}>"
       end
 
       private

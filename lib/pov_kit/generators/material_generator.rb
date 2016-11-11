@@ -3,7 +3,7 @@ module PovKit
     class MaterialGenerator < PovKit::Generators::Base
       def initialize(flags:, switches:, args:)
         super(flags: flags, switches: switches, args: args)
-        self.asset = :camera
+        self.asset = :material
       end
 
       def fill_template
