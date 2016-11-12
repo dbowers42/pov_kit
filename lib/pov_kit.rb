@@ -8,5 +8,7 @@ require 'pov_kit/generators/cylinder_generator'
 require 'pov_kit/generators/material_generator'
 require 'pov_kit/generators/sphere_generator'
 
+require 'pov_kit/scaffold/project_scaffold'
+
 # Add requires for other files you add to your project here, so
 # you just need to require this one file in your bin file

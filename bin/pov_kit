@@ -53,6 +53,15 @@ command :generate do |c|
   end
 end
 
+desc 'Describe new here'
+arg_name 'Describe arguments to generate here'
+command :new do |c|
+  c.desc 'Creates a new POV-Ray project'
+  c.action do |_global_options, _options, args|
+    PovKit::Scaffold::ProjectScaffold.new.create(args.first)
+  end
+end
+
 pre do |_global, _command, _options, _args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
