@@ -7,8 +7,14 @@ require 'pov_kit/generators/cone_generator'
 require 'pov_kit/generators/cylinder_generator'
 require 'pov_kit/generators/material_generator'
 require 'pov_kit/generators/sphere_generator'
+require 'pov_kit/generators/config_generator'
+require 'pov_kit/generators/scene_generator'
+require 'pov_kit/generators/make_generator'
 
-require 'pov_kit/scaffold/project_scaffold'
+# Dir.glob('pov_kit/generators/*.rb').each do |g|
+#   require g
+# end
+
 
 # Add requires for other files you add to your project here, so
 # you just need to require this one file in your bin file

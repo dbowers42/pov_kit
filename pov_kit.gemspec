@@ -8,14 +8,14 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'http://your.website.com'
   s.platform = Gem::Platform::RUBY
   s.summary = 'A description of your project'
-  s.files = `git ls-files`.split("
-")
+  s.files = `git ls-files`.split("\n")
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','pov_kit.rdoc']
+  s.extra_rdoc_files = %w(README.rdoc pov_kit.rdoc)
   s.rdoc_options << '--title' << 'pov_kit' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'pov_kit'
+  s.executables << 'povkit'
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')

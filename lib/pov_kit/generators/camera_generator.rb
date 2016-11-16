@@ -7,8 +7,8 @@ module PovKit
       def initialize(flags:, switches:, args:)
         super(flags: flags, switches: switches, args: args)
         self.asset = :camera
-        self.location = vector(args[1] || 0, args[2] || 10, args[3] || -10)
-        self.look_at = vector(args[4] || 0, args[5] || 10, args[6] || 0)
+        self.location = vector(args[2] || 0, args[3] || 10, args[4] || -10)
+        self.look_at = vector(args[5] || 0, args[6] || 10, args[7] || 0)
       end
 
       def fill_template

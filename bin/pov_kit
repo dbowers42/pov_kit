@@ -35,12 +35,11 @@ flag [:g, :global]
 desc 'Describe generate here'
 arg_name 'Describe arguments to generate here'
 command :generate do |c|
-  c.desc 'Describe a switch to generate'
-  c.switch :a
+  c.desc 'Declare generated asset in local scope'
+  c.switch :l, :local
 
-  c.desc 'Describe a flag to generate'
-  c.default_value 'default'
-  c.flag :f
+  c.desc 'Declare generated asset in global scope'
+  c.switch :g, :global
 
   c.action do |global_options, options, args|
     config = {
@@ -55,10 +54,10 @@ end
 
 desc 'Describe new here'
 arg_name 'Describe arguments to generate here'
-command :new do |c|
+command :init do |c|
   c.desc 'Creates a new POV-Ray project'
-  c.action do |_global_options, _options, args|
-    PovKit::Scaffold::ProjectScaffold.new.create(args.first)
+  c.action do |_global_options, _options, _args|
+
   end
 end
 

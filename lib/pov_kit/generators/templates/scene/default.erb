@@ -1,0 +1,21 @@
+# <%= project_name %>.pov
+#include "colors.inc"
+#include "textures.inc"
+
+camera {
+  <0, 1, -10>
+  <0, 1, 0>
+}
+
+light_source{
+  <50, 50, -50>
+  color rgb<1,1,1>
+}
+
+sphere {
+  <0,0,0>, 1
+  material {
+    texture {
+      pigment { White }
+  }
+}

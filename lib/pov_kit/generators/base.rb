@@ -8,9 +8,9 @@ module PovKit
       attr_reader :is_local
 
       def initialize(flags:, switches:, args:)
-        @is_local = !!flags[:local]
-        @name = flags[:local] if flags[:local]
-        @name = flags[:global] if flags[:global]
+        @name = args[1]
+        # TODO: Fix, code is flawed just because something is not local does not mean it is global
+        @is_local = @name && !!switches[:local] unless !!switches[:global]
       end
 
       def fill_template
@@ -36,8 +36,6 @@ module PovKit
       def vector(x, y, z)
         "<#{x || 0}, #{y || 0}, #{z || 1}>"
       end
-
-      private
 
       def template_name
         case
