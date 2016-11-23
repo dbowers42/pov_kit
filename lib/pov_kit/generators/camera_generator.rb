@@ -4,18 +4,17 @@ module PovKit
     class CameraGenerator < PovKit::Generators::Base
       attr_accessor :name, :location, :look_at
 
-      def initialize(flags:, switches:, args:)
-        super(flags: flags, switches: switches, args: args)
+      def configure(options)
         self.asset = :camera
-        self.location = vector(args[2] || 0, args[3] || 10, args[4] || -10)
-        self.look_at = vector(args[5] || 0, args[6] || 10, args[7] || 0)
+        self.location = vector(*options[:location])
+        self.look_at = vector(*options[:look_at])
       end
 
       def fill_template
         {
-            name: name,
+            name: self.name,
             location: location,
-            look_at:  look_at
+            look_at: look_at
         }
       end
     end

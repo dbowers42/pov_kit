@@ -13,60 +13,35 @@ end
 include GLI::App
 
 program_desc 'Describe your application here'
-
 version PovKit::VERSION
-
 subcommand_option_handling :normal
 arguments :strict
 
-desc 'Describe some switch here'
-switch [:a, :append]
-
-
-desc 'File to output generated code to'
-default_value 'untitled.inc'
-arg_name 'output file'
-flag [:f, :file]
-
 flag [:l, :local]
-
 flag [:g, :global]
 
-desc 'Describe generate here'
-arg_name 'Describe arguments to generate here'
-command :generate do |c|
-  c.desc 'Declare generated asset in local scope'
-  c.switch :l, :local
+require 'pov_kit/commands/init_command'
+require 'pov_kit/commands/generator_command'
 
-  c.desc 'Declare generated asset in global scope'
-  c.switch :g, :global
-
-  c.action do |global_options, options, args|
-    config = {
-        flags: global_options,
-        switches: options,
-        args: args
-    }
-
-    puts PovKit::Generators::GeneratorFactory.build(args.first, config).render
-  end
-end
-
-desc 'Describe new here'
-arg_name 'Describe arguments to generate here'
-command :init do |c|
-  c.desc 'Creates a new POV-Ray project'
-  c.action do |_global_options, _options, _args|
-
-  end
-end
-
-pre do |_global, _command, _options, _args|
+pre do |_global, _command, _options, args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
+  config = {}
+
+  key = nil
+  args.each do |arg|
+    if arg.end_with?(':')
+      key = arg.to_s[0..-2].gsub('-', '_').to_sym
+      config[key] = []
+    else
+      config[key] << arg if key
+    end
+  end
+
+  args << config
   true
 end
 

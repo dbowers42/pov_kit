@@ -4,13 +4,20 @@ require 'erb'
 module PovKit
   module Generators
     class Base
-      attr_accessor :asset, :assigns, :name
+      attr_accessor :asset, :assigns, :name, :flags, :switches, :scope
       attr_reader :is_local
 
-      def initialize(flags:, switches:, args:)
-        @name = args[1]
-        # TODO: Fix, code is flawed just because something is not local does not mean it is global
-        @is_local = @name && !!switches[:local] unless !!switches[:global]
+      def initialize(flags, switches, args)
+        options = args.pop
+        self.flags = flags
+        self.switches = switches
+        self.name = (options[:name] || ['']).first
+        self.scope = (options[:scope] || [nil]).first
+        configure(options)
+      end
+
+      def configure(options)
+        self.config = options
       end
 
       def fill_template
@@ -33,18 +40,18 @@ module PovKit
            .instance_eval { binding })
       end
 
-      def vector(x, y, z)
-        "<#{x || 0}, #{y || 0}, #{z || 1}>"
+      def vector(x = 0, y = 0, z = 0)
+        "<#{x}, #{y}, #{z}>"
       end
 
       def template_name
-        case
-          when @name == ''
-            'default.erb'
-          when @is_local
+        case self.scope
+          when 'local'
             'local.erb'
-          else
+          when 'global'
             'global.erb'
+          else
+            'default.erb'
         end
       end
     end
